@@ -19,7 +19,8 @@ import { useState } from "react";
             const data = await response.json();
     
             if (response.ok) {
-                localStorage.setItem("token", data.token);                
+                localStorage.setItem("token", data.token); 
+                localStorage.setItem("email",data.email)  ;             
     
                 alert("Login successful");
     
