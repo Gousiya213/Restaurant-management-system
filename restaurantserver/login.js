@@ -11,7 +11,7 @@ import UserModel from './db.js';
 
 
 dotenv.config();
-const JWT_USER_SECRET = process.env.JWT_USER_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const UserRouter = Router();
 const app = express();
@@ -67,8 +67,9 @@ UserRouter.post('/signin', async (req, res) => {
         if (!passwordMatch) {
             return res.status(400).json({ message: "Invalid Password" });
         }
-
-        const token = jwt.sign({ id: user._id.toString()}, JWT_USER_SECRET);
+        
+        const token = jwt.sign({ id: user._id.toString()}, JWT_SECRET);
+        res.status(200).json({ token,email });
     } catch (e) {
         console.error("Signin Error:", e);
         res.status(500).json({ message: "Internal Server Error" });
