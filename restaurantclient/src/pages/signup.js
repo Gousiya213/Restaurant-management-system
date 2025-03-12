@@ -43,9 +43,7 @@ function Signup() {
 
       if (response.ok) {
         const userData = await response.json(); 
-        localStorage.setItem("username", formData.username ); 
-        localStorage.setItem("email", formData.email ); 
-  
+      
         alert("Signup successful");
         navigate("/");
       } else if (response.status === 400) {

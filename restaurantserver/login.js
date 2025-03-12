@@ -85,7 +85,7 @@ UserRouter.post('/forgot-password', async (req, res) => {
         if (!user) {
             return res.status(400).json({ message: "User with this email does not exist" });
         }
-        const resetToken = jwt.sign({ id: user._id }, JWT_USER_SECRET, { expiresIn: '15m' });
+        const resetToken = jwt.sign({ email }, JWT_SECRET, { expiresIn: '15m' });
         const transporter = nodemailer.createTransport({
             secure: true,
             service: 'gmail',
@@ -101,7 +101,7 @@ UserRouter.post('/forgot-password', async (req, res) => {
 
             to: email,
             subject: 'Password Reset',
-            html: `<p>You requested a password reset. Click <a href="http://localhost:3000/reset-password?token=${resetToken}">here</a> to reset your password. This link is valid for 15 minutes.</p>`
+            html: `<p>You requested a password reset. <a href="http://localhost:3001/reset-password?token=${resetToken}">Click here</a> to reset your password. This link is valid for 15 minutes.</p>`
         };
 
         await transporter.sendMail(mailOptions);
