@@ -15,7 +15,6 @@ function Signup() {
     email: "",
     password: "",
     confirmpassword: "",
-    role: "", // Added role field
   });
 
   const handleInputChange = (e) => {
@@ -39,7 +38,6 @@ function Signup() {
           username: formData.username,
           email: formData.email,
           password: formData.password,
-          role: formData.role, // Send role in request
         }),
       });
 
@@ -47,7 +45,6 @@ function Signup() {
         const userData = await response.json(); 
         localStorage.setItem("username", formData.username ); 
         localStorage.setItem("email", formData.email ); 
-        localStorage.setItem("role", formData.role ); 
   
         alert("Signup successful");
         navigate("/");
@@ -120,7 +117,6 @@ function Signup() {
             />
           </div>
 
-          {/* Role Selection Dropdown */}
         
           <button className="signup-button" type="submit">
             Sign Up
