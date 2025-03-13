@@ -14,8 +14,16 @@ const MenuSchema = new Schema({
     image: { type: String, required: true },
     description: { type: String },});
 
+const spoffersSchema = new Schema({
+    name: { type: String, required: true },
+    price: { type: Number, required: true, min: 0 },
+    image: { type: String, required: true },
+    description: { type: String },});
+
+
 const User = mongoose.model('User', UserSchema);
 const Menu = mongoose.model('Menu', MenuSchema);
+const spoffers = mongoose.model('spoffers', spoffersSchema);
 
 
 
@@ -24,4 +32,5 @@ const Menu = mongoose.model('Menu', MenuSchema);
 export {
     User,
     Menu,
+    spoffers,
 }

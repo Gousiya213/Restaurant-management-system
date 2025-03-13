@@ -2,16 +2,16 @@ import dotenv from 'dotenv';
 import { Router } from 'express';
 import express from 'express';
 import { z } from 'zod';
-import { Menu } from './db.js';
+import { spoffers } from './db.js';
 
 
 dotenv.config();
 
-const MenuRouter = Router();
+const spoffersRouter = Router();
 const app = express();
 app.use(express.json());
 
-MenuRouter.post('/additem', async (req, res) => {
+spoffersRouter.post('/additem', async (req, res) => {
     const requiredBody = z.object({
         name: z.string(),
         price: z.number().int(),
@@ -29,30 +29,30 @@ MenuRouter.post('/additem', async (req, res) => {
 
     const { name, price, image, description } = req.body;
     try {
-        await Menu.create({
+        await spoffers.create({
             name,
             price,
             image,
             description,
         });
 
-        res.status(201).json({ message: 'Menu Item Added Successfully' });
+        res.status(201).json({ message: 'Item Added Successfully In Special Offers' });
 
     } catch (e) {
-        console.error("Menu Add Error:", e);
+        console.error("Error in adding item:", e);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-MenuRouter.get('/allitems', async (req, res) => {
+spoffersRouter.get('/allitems', async (req, res) => {
     try {
-        const allMenuItems = await Menu.find();
-        res.status(200).json(allMenuItems);
+        const allItems = await spoffers.find();
+        res.status(200).json(allItems);
     } catch (e) {
-        console.error("Menu Fetch Error:", e);
+        console.error(" Fetch Error:", e);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-MenuRouter.delete('/deleteitem', async (req, res) => {
+spoffersRouter.delete('/deleteitem', async (req, res) => {
     const requiredBody = z.object({
         name: z.string(),
         price: z.number().int(),
@@ -68,17 +68,17 @@ MenuRouter.delete('/deleteitem', async (req, res) => {
 
     const { name, price } = req.body;
     try {
-        const deletedItem = await Menu.findOneAndDelete({ name, price });
+        const deletedItem = await spoffers.findOneAndDelete({ name, price });
 
         if (!deletedItem) {
-            return res.status(404).json({ message: "Menu item not found" });
+            return res.status(404).json({ message: "Item not found" });
         }
 
-        res.status(200).json({ message: 'Menu Item Deleted Successfully' });
+        res.status(200).json({ message: 'Item Deleted Successfully' });
 
     } catch (e) {
-        console.error("Menu Delete Error:", e);
+        console.error("Delete Error:", e);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-export default MenuRouter;
+export default spoffersRouter;
