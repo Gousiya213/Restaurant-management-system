@@ -45,7 +45,7 @@ import { useState } from "react";
             <h2 className="login-title">Welcome Back!</h2>
             <div className="login-input-container">
               <label className="login-label" htmlFor="email">
-                Email
+                Email:
               </label>
               <input
                 className="login-input"
@@ -58,7 +58,7 @@ import { useState } from "react";
             </div>
             <div className="login-input-container">
               <label className="login-label" htmlFor="password">
-                Password
+                Password:
               </label>
               <input
                 className="login-input"
