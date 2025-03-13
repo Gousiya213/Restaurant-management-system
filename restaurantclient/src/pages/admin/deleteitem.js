@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function DeleteItem() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-
+    const navigate = useNavigate();
     const handleDelete = async (e) => {
         e.preventDefault();
 
@@ -27,6 +28,7 @@ export default function DeleteItem() {
                 // Reset form
                 setName("");
                 setPrice("");
+                navigate("/admin/menu");
             } else {
                 alert(data.message || "Failed to delete item.");
             }
@@ -49,6 +51,7 @@ export default function DeleteItem() {
                     <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
                 </div>
                 <button className="delete-button" type="submit">Delete Dish</button>
+                <button className="menu-btn" onClick={() => navigate("/admin/menu")}>Back to menu</button>
             </form>
         </div>
     );

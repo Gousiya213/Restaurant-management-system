@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function AddItem() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -35,6 +36,7 @@ export default function AddItem() {
                 setPrice("");
                 setImage("");
                 setDescription("");
+                navigate("/admin/menu");
             } else {
                 alert(data.message || "Failed to add item.");
             }
@@ -66,6 +68,7 @@ export default function AddItem() {
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
                 </div>
                 <button className="submit-button" type="submit">Add Dish</button>
+                <button className="menu-btn" onClick={() => navigate("/admin/menu")}>Back to menu</button>
             </form>
         </div>
     );
