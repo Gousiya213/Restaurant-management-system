@@ -31,8 +31,8 @@ export default function MenuItems() {
         <div className="menu-container">
             <h2 className="menu-title">Our Menu</h2>
             <div className="menu-grid">
-                {menuItems.map((item) => (
-                    <div className="menu-card" key={item.id}>
+                {menuItems.map((item, index) => (
+                        <div className="menu-card" key={item.id || index}>
                         <img src={item.image} alt={item.name} className="menu-image" />
                         <h3 className="menu-name">{item.name}</h3>
                         <p className="menu-price">₹{item.price}</p>
@@ -43,3 +43,4 @@ export default function MenuItems() {
         </div>
     );
 }
+
