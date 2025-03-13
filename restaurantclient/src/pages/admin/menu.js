@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuItems() {
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMenuItems = async () => {
@@ -32,7 +34,7 @@ export default function MenuItems() {
             <h2 className="menu-title">Our Menu</h2>
             <div className="menu-grid">
                 {menuItems.map((item, index) => (
-                        <div className="menu-card" key={item.id || index}>
+                    <div className="menu-card" key={item.id || index}>
                         <img src={item.image} alt={item.name} className="menu-image" />
                         <h3 className="menu-name">{item.name}</h3>
                         <p className="menu-price">₹{item.price}</p>
@@ -40,7 +42,11 @@ export default function MenuItems() {
                     </div>
                 ))}
             </div>
+
+            <div className="admin-buttons">
+                <button className="admin-btn" onClick={() => navigate("/admin/additem")}>Add Item</button>
+                <button className="admin-btn delete" onClick={() => navigate("/admin/deleteitem")}>Delete Item</button>
+            </div>
         </div>
     );
 }
-
