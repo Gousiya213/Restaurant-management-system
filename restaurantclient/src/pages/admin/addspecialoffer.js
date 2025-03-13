@@ -17,7 +17,7 @@ export default function AddItem() {
         };
     
         try {
-            const response = await fetch("http://localhost:3000/api/menu/additem", {
+            const response = await fetch("http://localhost:3000/api/spoffers/additem", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json", // Send as JSON
@@ -36,7 +36,7 @@ export default function AddItem() {
                 setPrice("");
                 setImage("");
                 setDescription("");
-                navigate("/admin/menu");
+                navigate("/admin/specialoffers");
             } else {
                 alert(data.message || "Failed to add item.");
             }
@@ -68,8 +68,9 @@ export default function AddItem() {
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
                 </div>
                 <button className="submit-button" type="submit">Add Dish</button>
+                
             </form>
-            <button className="menu-btn" onClick={() => navigate("/admin/menu")}>Back to menu</button>
+            <button className="menu-btn" onClick={() => navigate("/admin/specialoffers")}>Back to menu</button>
         </div>
     );
 }

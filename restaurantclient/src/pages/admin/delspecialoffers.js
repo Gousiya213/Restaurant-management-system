@@ -11,7 +11,7 @@ export default function DeleteItem() {
         const requestData = { name, price: parseInt(price) }; // Convert price to integer
 
         try {
-            const response = await fetch("http://localhost:3000/api/menu/deleteitem", {
+            const response = await fetch("http://localhost:3000/api/spoffers/deleteitem", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export default function DeleteItem() {
                 // Reset form
                 setName("");
                 setPrice("");
-                navigate("/admin/menu");
+                navigate("/admin/specialoffers");
             } else {
                 alert(data.message || "Failed to delete item.");
             }
@@ -52,8 +52,7 @@ export default function DeleteItem() {
                 </div>
                 <button className="delete-button" type="submit">Delete Dish</button>
             </form>
-            <button className="menu-btn" onClick={() => navigate("/admin/menu")}>Back to menu</button>
-
+            <button className="menu-btn" onClick={() => navigate("/admin/specialoffers")}>Back to menu</button>
         </div>
     );
 }

@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MenuItems() {
-    const [menuItems, setMenuItems] = useState([]);
+export default function Spoffers() {
+    const [Items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchMenuItems = async () => {
+        const fetchItems = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/menu/allitems");
+                const response = await fetch("http://localhost:3000/api/spoffers/allitems");
                 if (!response.ok) {
-                    throw new Error("Failed to fetch menu items");
+                    throw new Error("Failed to fetch items");
                 }
                 const data = await response.json();
-                setMenuItems(data);
+                setItems(data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -23,17 +23,17 @@ export default function MenuItems() {
             }
         };
 
-        fetchMenuItems();
+        fetchItems();
     }, []);
 
-    if (loading) return <p>Loading menu...</p>;
+    if (loading) return <p>Loading Items...</p>;
     if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="menu-container">
-            <h2 className="menu-title">Our Menu</h2>
+            <h2 className="menu-title">Special Offers</h2>
             <div className="menu-grid">
-                {menuItems.map((item, index) => (
+                {Items.map((item, index) => (
                     <div className="menu-card" key={item.id || index}>
                         <img src={item.image} alt={item.name} className="menu-image" />
                         <h3 className="menu-name">{item.name}</h3>
@@ -44,8 +44,8 @@ export default function MenuItems() {
             </div>
 
             <div className="admin-buttons">
-                <button className="admin-btn" onClick={() => navigate("/admin/menu/additem")}>Add Item</button>
-                <button className="admin-btn delete" onClick={() => navigate("/admin/menu/deleteitem")}>Delete Item</button>
+                <button className="admin-btn" onClick={() => navigate("/admin/specialoffers/additem")}>Add Item</button>
+                <button className="admin-btn delete" onClick={() => navigate("/admin/specialoffers/deleteitem")}>Delete Item</button>
             </div>
         </div>
     );
