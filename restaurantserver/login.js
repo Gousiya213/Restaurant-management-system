@@ -6,8 +6,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
-import UserModel from './db.js';
-
+import { User } from './db.js';
 
 
 dotenv.config();
@@ -36,12 +35,12 @@ UserRouter.post('/signup', async (req, res) => {
 
     const { username, email, password} = req.body;
     try {
-        const existingUser = await UserModel.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Email already in use" });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        await UserModel.create({
+        await User.create({
             username,
             email,
             password: hashedPassword,
@@ -57,7 +56,7 @@ UserRouter.post('/signup', async (req, res) => {
 UserRouter.post('/signin', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await UserModel.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(400).json({ message: "Incorrect Credentials" });
@@ -81,7 +80,7 @@ UserRouter.post('/forgot-password', async (req, res) => {
     try {
         const { email } = req.body;
 
-        const user = await UserModel.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: "User with this email does not exist" });
         }
@@ -118,7 +117,7 @@ UserRouter.post('/reset-password', async (req, res) => {
         const {newPassword } = req.body;
         const token = localStorage.getItem("token");
         const decoded = jwt.verify(token, JWT_USER_SECRET);
-        const user = await UserModel.findById(decoded.id);
+        const user = await User.findById(decoded.id);
 
         if (!user) {
             return res.status(400).json({ message: "Invalid or expired token" });
