@@ -54,7 +54,7 @@ MenuRouter.get('/allitems', async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-MenuRouter.post('/deleteitem', async (req, res) => {
+MenuRouter.delete('/deleteitem', async (req, res) => {
     const requiredBody = z.object({
         name: z.string(),
         price: z.number().int(),

@@ -10,6 +10,8 @@ import ForgotPassword from "./pages/forgotpass";
 import AdminHome from "./pages/admin/admin_home";
 import AddItem from "./pages/admin/additem";
 import Menu from "./pages/admin/menu";
+import DeleteItem from "./pages/admin/deleteitem";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path="/admin/home" element={<AdminHome />} />
         <Route path="/admin/menu" element={<Menu />} />
         <Route path="/admin/additem" element={<AddItem />} />
+        <Route path="/admin/deleteitem" element={<DeleteItem />} />
 
       </Routes>
     </Router>

@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+
+export default function DeleteItem() {
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        const requestData = { name, price: parseInt(price) }; // Convert price to integer
+
+        try {
+            const response = await fetch("http://localhost:3000/api/menu/deleteitem", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Item deleted successfully!");
+                console.log("Deleted item:", data);
+                
+                // Reset form
+                setName("");
+                setPrice("");
+            } else {
+                alert(data.message || "Failed to delete item.");
+            }
+        } catch (error) {
+            console.error("Error deleting item:", error);
+            alert("Network error occurred.");
+        }
+    };
+
+    return (
+        <div className="delete-item-container">
+            <h2 className="delete-item-title">Delete Dish</h2>
+            <form className="delete-item-form" onSubmit={handleDelete}>
+                <div className="form-group">
+                    <label>Dish Name:</label>
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                </div>
+                <div className="form-group">
+                    <label>Price:</label>
+                    <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                </div>
+                <button className="delete-button" type="submit">Delete Dish</button>
+            </form>
+        </div>
+    );
+}
